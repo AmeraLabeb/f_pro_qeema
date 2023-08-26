@@ -8,6 +8,8 @@ import { HeaderComponent } from './Component/header/header.component';
 import { SidbarComponent } from './Component/sidbar/sidbar.component';
 import { HomeComponent } from './Component/home/home.component';
 import { ProductListComponent } from './Component/Order/product-list/product-list.component';
+import { LightBoxDirective } from './Directive/light-box.directive';
+import { USDtoEGPPipe } from './Pipes/usdto-egp.pipe';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { ProductListComponent } from './Component/Order/product-list/product-lis
     HeaderComponent,
     SidbarComponent,
     HomeComponent,
-    ProductListComponent
+    ProductListComponent,
+    LightBoxDirective,
+    USDtoEGPPipe
   ],
   imports: [
     BrowserModule,

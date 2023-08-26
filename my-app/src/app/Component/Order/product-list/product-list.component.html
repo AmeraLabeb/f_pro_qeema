@@ -7,37 +7,57 @@
     <div class="text-secondary">
         [to be removed] for test:{{selectedCatID}}
         <button type="button" class="btn-secondary" (click)="changeCat()" >Change Category</button>
+        <br>
+        Order's Date : {{orderDate | date}}
     </div>
     <hr>
     <table class="table table-sm" >
         <thead >
           <tr>
-            <th>ID</th>
+            <th>No.</th>
             <th>Name</th>
             <th>Image</th>
             <th>av. Quantity</th>
-            <th>Price</th>
+            <th>Price in USD</th>
+            <th>Price in EGP</th>
             <th>Count</th>
             <th>Buy</th>
         </tr>
         </thead>
         <tbody>
           <!-- <tr *ngFor="let prd of prdList" class="custom-table-row" [class.bg-warning]="prd.quantity==0"> -->
-            <tr *ngFor="let prd of prdList"
+            <!-- trackBy: improve the performance of ngFor -->
+            <!-- <tr *ngFor="let prd of prdList; let i=index; trackBy:prdTrackByfuc"
             [class.d-none]="selectedCatID!=prd.categoryID"
             class="custom-table-row"
-            [style.background-color] ="(prd.quantity===0)?'yellow':'lightgray'">
-              <!-- save navigation operator -->
-            <td>{{prd?.id}}</td>
+            [style.background-color] ="(prd.quantity===0)?'yellow':'lightgray'"> -->
+              <!-- save navigation operator  ?-->
+              <!-- <ng-container *ngFor="let prd of prdList; let i=index;">
+                <tr *ngIf="prd.quantity!==0"> -->
+            <tr *ngFor="let prd of prdList; let i=index;">
+            <td>{{i+1}}</td>
             <td>{{prd.name}}</td>
-            <td><img [src]="prd.imgURL" alt=""></td>
-            <td>{{prd.quantity}}</td>
-            <td>{{prd.price}}</td>
+            <td><img LightBox="red" [src]="prd.imgURL" alt="44"></td>
+            <td>
+              <!-- <div *ngIf="prd.quantity!=0; else outStock">{{prd.quantity}}</div>
+              <ng-template #outStock>out of stock</ng-template>  -->
+              <!-- <ng-container [ngSwitch]="prd.quantity">
+                <div *ngSwitchCase="0">Out of stock</div>
+                <div *ngSwitchCase="1">last 1 item</div>
+                <div *ngSwitchCase="2">last 2 item</div>
+                <div *ngSwitchDefault="">{{prd.quantity}}</div>
+              </ng-container> -->
+              {{prd.quantity}}
+            </td>
+            <!-- <td>{{prd.price| currency}}</td> -->
+            <td>{{prd.price| currency:'USD':'symbol'}}</td>
+            <td>{{prd.price| USDtoEGP|currency:'EGP':'code'}}</td>
             <!-- templat varible  -->
             <td><input  #itemsCount  type="number" class="form-control"></td>
             <td><button class="btn btn-secondary"  type="button" (click)="buy(prd.price ,itemsCount.value)">Buy</button></td>
           </tr>
+        <!-- </ng-container> -->
         </tbody>
       </table>
       <hr>
-      <h3>Order total price : {{orderTotalPrice}}</h3>
+      <h3>Order total price : {{orderTotalPrice | currency}}</h3>
