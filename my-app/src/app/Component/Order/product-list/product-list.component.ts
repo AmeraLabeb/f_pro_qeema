@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ICategory } from 'src/app/Models/icategory';
 import { IProduct } from 'src/app/Models/iproduct';
 
@@ -7,18 +7,16 @@ import { IProduct } from 'src/app/Models/iproduct';
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss']
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit ,OnChanges{
   orderDate:Date;
-  catList:ICategory[];
   prdList:IProduct[];
-  selectedCatID:number=0;
+  prdListOfCat:IProduct[]=[];
+  // selectedCatID:number=0;
+  @Input() sentCatID:number=0;
+  @Output() totalPriceChanged:EventEmitter<number>;
 orderTotalPrice:number=0;
   constructor(){
-    this.catList=[
-      {id:1,name:'laptop'},
-      {id:2,name:'tablet'},
-      {id:3,name:'Mobile'}
-    ];
+   this.totalPriceChanged=new EventEmitter<number>();
 this.prdList=[
   {id:100,name:'lenovo1',price:2000,quantity:1,imgURL:'https://fakeimg.pl/200x100/',categoryID:3},
   {id:200,name:'apple-pro',price:3000,quantity:0,imgURL:'https://fakeimg.pl/200x100/',categoryID:3},
@@ -28,7 +26,15 @@ this.prdList=[
   {id:600,name:'notebook',price:40000,quantity:0,imgURL:'https://fakeimg.pl/200x100/',categoryID:1}
 ];
 this.orderDate=new Date();
+this.prdListOfCat=this.prdList;
+
   }
+
+    // معنديش drop down list input بيتغير 
+    // بيتغير كل لما الداخلي  بيتغير 
+  ngOnChanges(): void {
+this.filterProductsByCatID(); 
+ }
   ngOnInit(): void{
 
   }
@@ -39,13 +45,24 @@ this.orderDate=new Date();
   // >>>> count :any <<<<
   // >>> this.orderTotalPrice=(count as number)*prdPrice;<<<
    this.orderTotalPrice= this.orderTotalPrice + (Number(count) * prdPrice);
+  //  excute event
+  this.totalPriceChanged.emit(this.orderTotalPrice);
 
   }
-  changeCat(){
-    this.selectedCatID=1;
-  }
+  // changeCat(){
+  //   this.selectedCatID=1;
+  // }
   prdTrackByfuc(index:number, prd:IProduct):number
   {
     return prd.id;
   }
+  // مش محتاج اشوفها من برا الكلاس
+  private filterProductsByCatID(){
+    if(this.sentCatID==0)
+    this.prdListOfCat=this.prdList;
+  else
+
+    this.prdListOfCat= this.prdList.filter(prd=>prd.categoryID== this.sentCatID);
+  }
+
 }

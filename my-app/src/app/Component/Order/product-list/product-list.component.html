@@ -1,15 +1,16 @@
-<div class="mb-3">
+<!-- <div class="mb-3">
     <label for="prdCat" class="form-label">Category:</label>
-    <select  class="form-control" name="cat" id="prdCat"[(ngModel)]="selectedCatID" >
+    <select  class="form-control" name="cat" id="prdCat"[(ngModel)]="selectedCatID" (change)="filterProductsByCatID()" >
         <option *ngFor="let cat of catList " [value]="cat.id" >{{cat.name}}</option>
     </select>
-    </div>
-    <div class="text-secondary">
+    </div> -->
+  <!-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+    <!-- <div class="text-secondary">
         [to be removed] for test:{{selectedCatID}}
         <button type="button" class="btn-secondary" (click)="changeCat()" >Change Category</button>
         <br>
         Order's Date : {{orderDate | date}}
-    </div>
+    </div> -->
     <hr>
     <table class="table table-sm" >
         <thead >
@@ -34,7 +35,7 @@
               <!-- save navigation operator  ?-->
               <!-- <ng-container *ngFor="let prd of prdList; let i=index;">
                 <tr *ngIf="prd.quantity!==0"> -->
-            <tr *ngFor="let prd of prdList; let i=index;">
+            <tr *ngFor="let prd of prdListOfCat; let i=index;">
             <td>{{i+1}}</td>
             <td>{{prd.name}}</td>
             <td><img LightBox="red" [src]="prd.imgURL" alt="44"></td>
@@ -60,4 +61,8 @@
         </tbody>
       </table>
       <hr>
-      <h3>Order total price : {{orderTotalPrice | currency}}</h3>
+      <!-- orderTotalPrice:number=0;-->
+      <!-- <div class="text-danger"> 
+       <h3 >[To be Removed]For test </h3>
+        <h3>Order total price : {{orderTotalPrice}}</h3></div> -->
+     

@@ -10,6 +10,7 @@ import { HomeComponent } from './Component/home/home.component';
 import { ProductListComponent } from './Component/Order/product-list/product-list.component';
 import { LightBoxDirective } from './Directive/light-box.directive';
 import { USDtoEGPPipe } from './Pipes/usdto-egp.pipe';
+import { OrderMasterComponent } from './Component/Order/order-master/order-master.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { USDtoEGPPipe } from './Pipes/usdto-egp.pipe';
     HomeComponent,
     ProductListComponent,
     LightBoxDirective,
-    USDtoEGPPipe
+    USDtoEGPPipe,
+    OrderMasterComponent
   ],
   imports: [
     BrowserModule,
